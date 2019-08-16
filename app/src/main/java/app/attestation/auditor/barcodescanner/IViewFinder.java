@@ -5,17 +5,25 @@ import android.graphics.Rect;
 public interface IViewFinder {
 
     void setLaserColor(int laserColor);
+
     void setMaskColor(int maskColor);
+
     void setBorderColor(int borderColor);
+
     void setBorderStrokeWidth(int borderStrokeWidth);
+
     void setBorderLineLength(int borderLineLength);
+
     void setLaserEnabled(boolean isLaserEnabled);
 
     void setBorderCornerRounded(boolean isBorderCornersRounded);
 
     void setBorderCornerRadius(int borderCornersRadius);
+
     void setViewFinderOffset(int offset);
+
     void setSquareViewFinder(boolean isSquareViewFinder);
+
     /**
      * Method that executes when Camera preview is starting.
      * It is recommended to update framing rect here and invalidate view after that. <br/>

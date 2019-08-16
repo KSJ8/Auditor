@@ -78,14 +78,14 @@ public class ZXingScannerView extends BarcodeScannerView {
     }
 
     public Collection<BarcodeFormat> getFormats() {
-        if(mFormats == null) {
+        if (mFormats == null) {
             return ALL_FORMATS;
         }
         return mFormats;
     }
 
     private void initMultiFormatReader() {
-        Map<DecodeHintType,Object> hints = new EnumMap<>(DecodeHintType.class);
+        Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
         hints.put(DecodeHintType.POSSIBLE_FORMATS, getFormats());
         mMultiFormatReader = new MultiFormatReader();
         mMultiFormatReader.setHints(hints);
@@ -93,7 +93,7 @@ public class ZXingScannerView extends BarcodeScannerView {
 
     @Override
     public void onPreviewFrame(byte[] data, Camera camera) {
-        if(mResultHandler == null) {
+        if (mResultHandler == null) {
             return;
         }
 
@@ -162,7 +162,7 @@ public class ZXingScannerView extends BarcodeScannerView {
             } else {
                 camera.setOneShotPreviewCallback(this);
             }
-        } catch(RuntimeException e) {
+        } catch (RuntimeException e) {
             // TODO: Terrible hack. It is possible that this method is invoked after camera is released.
             Log.e(TAG, e.toString(), e);
         }
@@ -179,7 +179,7 @@ public class ZXingScannerView extends BarcodeScannerView {
         try {
             source = new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top,
                     rect.width(), rect.height(), false);
-        } catch(Exception ignored) {
+        } catch (Exception ignored) {
         }
 
         return source;

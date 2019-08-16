@@ -35,9 +35,9 @@ import com.google.zxing.Result;
 
 import java.util.Collections;
 
-import me.dm7.barcodescanner.core.IViewFinder;
-import me.dm7.barcodescanner.core.ViewFinderView;
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import app.attestation.auditor.barcodescanner.IViewFinder;
+import app.attestation.auditor.barcodescanner.ViewFinderView;
+import app.attestation.auditor.barcodescanner.ZXingScannerView;
 
 public class QRScannerActivity extends Activity implements ZXingScannerView.ResultHandler {
     static final String EXTRA_SCAN_RESULT = "app.attestation.auditor.SCAN_RESULT";

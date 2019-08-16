@@ -44,7 +44,6 @@ public class ViewFinderView extends View implements IViewFinder {
     protected int mBorderLineLength;
     protected boolean mSquareViewFinder;
     private boolean mIsLaserEnabled;
-    private float mBordersAlpha;
     private int mViewFinderOffset = 0;
 
     public ViewFinderView(Context context) {
@@ -112,13 +111,6 @@ public class ViewFinderView extends View implements IViewFinder {
         } else {
             mBorderPaint.setStrokeJoin(Paint.Join.BEVEL);
         }
-    }
-
-    @Override
-    public void setBorderAlpha(float alpha) {
-        int colorAlpha = (int) (255 * alpha);
-        mBordersAlpha = alpha;
-        mBorderPaint.setAlpha(colorAlpha);
     }
 
     @Override

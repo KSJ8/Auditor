@@ -12,7 +12,7 @@ public interface IViewFinder {
     void setLaserEnabled(boolean isLaserEnabled);
 
     void setBorderCornerRounded(boolean isBorderCornersRounded);
-    void setBorderAlpha(float alpha);
+
     void setBorderCornerRadius(int borderCornersRadius);
     void setViewFinderOffset(int offset);
     void setSquareViewFinder(boolean isSquareViewFinder);

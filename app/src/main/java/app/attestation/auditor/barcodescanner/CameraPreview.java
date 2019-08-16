@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.graphics.Point;
 import android.hardware.Camera;
 import android.os.Handler;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
@@ -31,11 +30,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     public CameraPreview(Context context, CameraWrapper cameraWrapper, Camera.PreviewCallback previewCallback) {
         super(context);
-        init(cameraWrapper, previewCallback);
-    }
-
-    public CameraPreview(Context context, AttributeSet attrs, CameraWrapper cameraWrapper, Camera.PreviewCallback previewCallback) {
-        super(context, attrs);
         init(cameraWrapper, previewCallback);
     }
 
@@ -129,6 +123,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     public void setupCameraParameters() {
         Camera.Size optimalSize = getOptimalPreviewSize();
         Camera.Parameters parameters = mCameraWrapper.mCamera.getParameters();
+        assert optimalSize != null;
         parameters.setPreviewSize(optimalSize.width, optimalSize.height);
         mCameraWrapper.mCamera.setParameters(parameters);
         adjustViewSize(optimalSize);
@@ -300,11 +295,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     };
 
     // Mimic continuous auto-focusing
-    Camera.AutoFocusCallback autoFocusCB = new Camera.AutoFocusCallback() {
-        public void onAutoFocus(boolean success, Camera camera) {
-            scheduleAutoFocus();
-        }
-    };
+    Camera.AutoFocusCallback autoFocusCB = (success, camera) -> scheduleAutoFocus();
 
     private void scheduleAutoFocus() {
         mAutoFocusHandler.postDelayed(doAutoFocus, 1000);

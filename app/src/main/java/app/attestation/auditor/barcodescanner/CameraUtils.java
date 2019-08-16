@@ -5,10 +5,6 @@ import android.hardware.Camera;
 import java.util.List;
 
 public class CameraUtils {
-    /** A safe way to get an instance of the Camera object. */
-    public static Camera getCameraInstance() {
-        return getCameraInstance(getDefaultCameraId());
-    }
 
     /** Favor back-facing camera by default. If none exists, fallback to whatever camera is available **/
     public static int getDefaultCameraId() {

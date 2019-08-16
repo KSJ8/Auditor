@@ -123,57 +123,6 @@ public abstract class BarcodeScannerView extends FrameLayout implements Camera.P
         return viewFinderView;
     }
 
-    public void setLaserColor(int laserColor) {
-        mLaserColor = laserColor;
-        mViewFinderView.setLaserColor(mLaserColor);
-        mViewFinderView.setupViewFinder();
-    }
-    public void setMaskColor(int maskColor) {
-        mMaskColor = maskColor;
-        mViewFinderView.setMaskColor(mMaskColor);
-        mViewFinderView.setupViewFinder();
-    }
-    public void setBorderColor(int borderColor) {
-        mBorderColor = borderColor;
-        mViewFinderView.setBorderColor(mBorderColor);
-        mViewFinderView.setupViewFinder();
-    }
-    public void setBorderStrokeWidth(int borderStrokeWidth) {
-        mBorderWidth = borderStrokeWidth;
-        mViewFinderView.setBorderStrokeWidth(mBorderWidth);
-        mViewFinderView.setupViewFinder();
-    }
-    public void setBorderLineLength(int borderLineLength) {
-        mBorderLength = borderLineLength;
-        mViewFinderView.setBorderLineLength(mBorderLength);
-        mViewFinderView.setupViewFinder();
-    }
-    public void setLaserEnabled(boolean isLaserEnabled) {
-        mIsLaserEnabled = isLaserEnabled;
-        mViewFinderView.setLaserEnabled(mIsLaserEnabled);
-        mViewFinderView.setupViewFinder();
-    }
-    public void setIsBorderCornerRounded(boolean isBorderCornerRounded) {
-        mRoundedCorner = isBorderCornerRounded;
-        mViewFinderView.setBorderCornerRounded(mRoundedCorner);
-        mViewFinderView.setupViewFinder();
-    }
-    public void setBorderCornerRadius(int borderCornerRadius) {
-        mCornerRadius = borderCornerRadius;
-        mViewFinderView.setBorderCornerRadius(mCornerRadius);
-        mViewFinderView.setupViewFinder();
-    }
-    public void setSquareViewFinder(boolean isSquareViewFinder) {
-        mSquaredFinder = isSquareViewFinder;
-        mViewFinderView.setSquareViewFinder(mSquaredFinder);
-        mViewFinderView.setupViewFinder();
-    }
-    public void setBorderAlpha(float borderAlpha) {
-        mBorderAlpha = borderAlpha;
-        mViewFinderView.setBorderAlpha(mBorderAlpha);
-        mViewFinderView.setupViewFinder();
-    }
-
     public void startCamera(int cameraId) {
         if(mCameraHandlerThread == null) {
             mCameraHandlerThread = new CameraHandlerThread(this);
@@ -213,12 +162,6 @@ public abstract class BarcodeScannerView extends FrameLayout implements Camera.P
     public void stopCameraPreview() {
         if(mPreview != null) {
             mPreview.stopCameraPreview();
-        }
-    }
-
-    protected void resumeCameraPreview() {
-        if(mPreview != null) {
-            mPreview.showCameraPreview();
         }
     }
 
@@ -268,26 +211,6 @@ public abstract class BarcodeScannerView extends FrameLayout implements Camera.P
         }
     }
 
-    public boolean getFlash() {
-        if(mCameraWrapper != null && CameraUtils.isFlashSupported(mCameraWrapper.mCamera)) {
-            Camera.Parameters parameters = mCameraWrapper.mCamera.getParameters();
-            return parameters.getFlashMode().equals(Camera.Parameters.FLASH_MODE_TORCH);
-        }
-        return false;
-    }
-
-    public void toggleFlash() {
-        if(mCameraWrapper != null && CameraUtils.isFlashSupported(mCameraWrapper.mCamera)) {
-            Camera.Parameters parameters = mCameraWrapper.mCamera.getParameters();
-            if(parameters.getFlashMode().equals(Camera.Parameters.FLASH_MODE_TORCH)) {
-                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-            } else {
-                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-            }
-            mCameraWrapper.mCamera.setParameters(parameters);
-        }
-    }
-
     public void setAutoFocus(boolean state) {
         mAutofocusState = state;
         if(mPreview != null) {
@@ -297,10 +220,6 @@ public abstract class BarcodeScannerView extends FrameLayout implements Camera.P
 
     public void setShouldScaleToFill(boolean shouldScaleToFill) {
         mShouldScaleToFill = shouldScaleToFill;
-    }
-
-    public void setAspectTolerance(float aspectTolerance) {
-        mAspectTolerance = aspectTolerance;
     }
 
     public byte[] getRotatedData(byte[] data, Camera camera) {

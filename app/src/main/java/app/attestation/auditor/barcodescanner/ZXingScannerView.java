@@ -26,9 +26,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import app.attestation.auditor.barcodescanner.BarcodeScannerView;
-import app.attestation.auditor.barcodescanner.DisplayUtils;
-
 public class ZXingScannerView extends BarcodeScannerView {
     private static final String TAG = "ZXingScannerView";
 
@@ -127,7 +124,7 @@ public class ZXingScannerView extends BarcodeScannerView {
                     // continue
                 } catch (NullPointerException npe) {
                     // This is terrible
-                } catch (ArrayIndexOutOfBoundsException aoe) {
+                } catch (ArrayIndexOutOfBoundsException ignored) {
 
                 } finally {
                     mMultiFormatReader.reset();
@@ -150,19 +147,16 @@ public class ZXingScannerView extends BarcodeScannerView {
 
             if (finalRawResult != null) {
                 Handler handler = new Handler(Looper.getMainLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Stopping the preview can take a little long.
-                        // So we want to set result handler to null to discard subsequent calls to
-                        // onPreviewFrame.
-                        ResultHandler tmpResultHandler = mResultHandler;
-                        mResultHandler = null;
+                handler.post(() -> {
+                    // Stopping the preview can take a little long.
+                    // So we want to set result handler to null to discard subsequent calls to
+                    // onPreviewFrame.
+                    ResultHandler tmpResultHandler = mResultHandler;
+                    mResultHandler = null;
 
-                        stopCameraPreview();
-                        if (tmpResultHandler != null) {
-                            tmpResultHandler.handleResult(finalRawResult);
-                        }
+                    stopCameraPreview();
+                    if (tmpResultHandler != null) {
+                        tmpResultHandler.handleResult(finalRawResult);
                     }
                 });
             } else {
@@ -172,11 +166,6 @@ public class ZXingScannerView extends BarcodeScannerView {
             // TODO: Terrible hack. It is possible that this method is invoked after camera is released.
             Log.e(TAG, e.toString(), e);
         }
-    }
-
-    public void resumeCameraPreview(ResultHandler resultHandler) {
-        mResultHandler = resultHandler;
-        super.resumeCameraPreview();
     }
 
     public PlanarYUVLuminanceSource buildLuminanceSource(byte[] data, int width, int height) {
@@ -190,7 +179,7 @@ public class ZXingScannerView extends BarcodeScannerView {
         try {
             source = new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top,
                     rect.width(), rect.height(), false);
-        } catch(Exception e) {
+        } catch(Exception ignored) {
         }
 
         return source;
